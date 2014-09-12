@@ -1,0 +1,23 @@
+{
+    "name": "bozboz/blog",
+    "description": "",
+    "authors": [
+        {
+            "name": "Dan Bower",
+            "email": "dan.bower88@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Bozboz\\Blog\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
