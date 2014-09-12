@@ -19,6 +19,10 @@ class BlogServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('bozboz/blog');
+
+		foreach (['routes.php', 'events.php'] as $file) {
+			require(__DIR__ . '/../../' . $file);
+		}
 	}
 
 	/**
