@@ -15,8 +15,8 @@
         "classmap": [
             "src/migrations"
         ],
-        "psr-0": {
-            "Bozboz\\Blog\\": "src/"
+        "psr-4": {
+            "Bozboz\\Blog\\": "src/Bozboz/Blog"
         }
     },
     "minimum-stability": "stable"
