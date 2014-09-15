@@ -5,12 +5,17 @@ use Bozboz\Blog\Validators\BlogPostValidator;
 
 class BlogPost extends Base
 {
-	public $table = 'blog_posts';
+	protected $table = 'blog_posts';
 
-	public $fillable = ['title', 'short_description', 'content', 'status'];
+	protected $fillable = ['title', 'short_description', 'content', 'blog_status_id'];
 
 	public function getValidator()
 	{
 		return new BlogPostValidator();
+	}
+
+	public function status()
+	{
+		return $this->belongsTo('Bozboz\Blog\Models\BlogStatus', 'blog_status_id');
 	}
 }

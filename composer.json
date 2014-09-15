@@ -17,7 +17,9 @@
             "src/migrations"
         ],
         "psr-4": {
-            "Bozboz\\Blog\\": "src/Bozboz/Blog"
+            "Bozboz\\Blog\\": "src/Bozboz/Blog",
+            "Bozboz\\Blog\\Database\\": "database/",
+            "Bozboz\\Blog\\Tests\\": "tests/"
         }
     },
     "minimum-stability": "stable",

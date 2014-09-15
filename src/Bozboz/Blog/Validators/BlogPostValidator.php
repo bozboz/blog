@@ -8,6 +8,6 @@ class BlogPostValidator extends Validator
 		'title' => 'required|max:128',
 		'short_description' => 'required|max:255',
 		'content' => 'required',
-		'status' => 'required'
+		'blog_status_id' => 'required'
 	];
 }
