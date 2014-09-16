@@ -38,7 +38,6 @@ class BlogPostAdminDecorator extends ModelAdminDecorator
 
 	public function getFields()
 	{
-		$blogCategoryFactory = new BlogCategory();
 		$blogStatusFactory = new BlogStatus();
 
 		return [
