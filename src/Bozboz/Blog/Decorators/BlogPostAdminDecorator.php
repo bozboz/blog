@@ -47,11 +47,12 @@ class BlogPostAdminDecorator extends ModelAdminDecorator
 			new HTMLEditorField(['name' => 'content']),
 			new CheckboxesField([
 				'name' => 'categories_ids',
+				'label' => 'Categories',
 				'options' => \Bozboz\Blog\Models\BlogCategory::all(),
 			]),
 			new SelectField([
 				'name' => 'blog_status_id',
-				'label' => 'Blog Status',
+				'label' => 'Status',
 				'options' => array_replace(
 					['' => 'Select'],
 					$blogStatusFactory->toArray()
