@@ -12,5 +12,6 @@ class BlogEventHandler
 	public function onRenderMenu(Menu $menu)
 	{
 		$menu['Blog Posts'] = route('admin.blog-posts.index'); 
+		$menu['Blog Categories'] = route('admin.blog-categories.index'); 
 	}
 }
