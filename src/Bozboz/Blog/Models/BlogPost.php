@@ -7,7 +7,7 @@ class BlogPost extends Base
 {
 	protected $table = 'blog_posts';
 
-	protected $fillable = ['title', 'short_description', 'content', 'categories_ids'];
+	protected $fillable = ['title', 'short_description', 'content', 'blog_status_id'];
 
 	public function getValidator()
 	{
