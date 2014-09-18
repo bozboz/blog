@@ -31,6 +31,11 @@ class BlogPostAdminDecorator extends ModelAdminDecorator
 		];
 	}
 
+	public function getSyncRelations()
+	{
+		return ['categories'];
+	}
+
 	public function getLabel($instance)
 	{
 		return $instance->getAttribute('title');
@@ -45,7 +50,7 @@ class BlogPostAdminDecorator extends ModelAdminDecorator
 			new TextField(['name' => 'short_description']),
 			new HTMLEditorField(['name' => 'content']),
 			new CheckboxesField([
-				'name' => 'categories_ids',
+				'name' => 'categories_relationship',
 				'label' => 'Categories',
 				'options' => \Bozboz\Blog\Models\BlogCategory::all(),
 			]),

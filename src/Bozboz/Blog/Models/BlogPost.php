@@ -28,15 +28,4 @@ class BlogPost extends Base
 			'blog_category_id'
 		);
 	}
-
-	public function setCategoriesIdsAttribute($categories)
-	{
-		$data = is_array($categories) ? $categories : [];
-		$this->categories()->sync($data);
-	}
-
-	public function getCategoriesIdsAttribute()
-	{
-		return $this->categories()->lists('blog_category_id');
-	}
 }
