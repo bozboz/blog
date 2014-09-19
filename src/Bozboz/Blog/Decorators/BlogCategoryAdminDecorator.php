@@ -34,6 +34,7 @@ class BlogCategoryAdminDecorator extends ModelAdminDecorator
 	{
 		return [
 			new TextField(['name' => 'name']),
+			new TextField(['name' => 'slug']),
 			new CheckboxField(['name' => 'status'])
 		];
 	}

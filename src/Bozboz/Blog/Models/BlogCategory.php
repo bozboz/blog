@@ -7,7 +7,7 @@ class BlogCategory extends Base
 {
 	protected $table = 'blog_categories';
 
-	protected $fillable = ['name', 'status'];
+	protected $fillable = ['name', 'slug', 'status'];
 
 	public function getValidator()
 	{
