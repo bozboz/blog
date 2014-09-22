@@ -17,7 +17,7 @@ class BlogCategory extends Base
 	public function blogPosts()
 	{
 		return $this->belongsToMany(
-			'Bozboz\Admin\Models\BlogPost',
+			'Bozboz\Blog\Models\BlogPost',
 			'blog_posts_mm_blog_categories',
 			'blog_post_id',
 			'blog_category_id'
