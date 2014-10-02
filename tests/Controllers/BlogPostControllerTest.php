@@ -17,7 +17,7 @@ class BlogPostControllerTest extends TestCase
 
 	public function test_index_has_blog_list()
 	{
-		$response = $this->call('GET', URL::route('blogIndex'));
+		$response = $this->call('GET', URL::route('blog.index'));
 		$blogPosts = BlogPost::where('blog_status_id', '=', BlogStatus::ACTIVE)->get();
 
 		foreach ($blogPosts as $blogPost) {
@@ -28,7 +28,7 @@ class BlogPostControllerTest extends TestCase
 	public function test_index_with_no_blog_posts()
 	{
 		BlogPost::truncate();
-		$response = $this->call('GET', URL::route('blogIndex'));
+		$response = $this->call('GET', URL::route('blog.index'));
 
 		$this->assertContains('no blog posts', strtolower($response->getContent()));
 	}
@@ -36,7 +36,7 @@ class BlogPostControllerTest extends TestCase
 	public function test_blog_detail()
 	{
 		$blogPost = BlogPost::where('blog_status_id', '=', BlogStatus::ACTIVE)->first();
-		$response = $this->call('GET', URL::route('blogDetail', ['slug' => $blogPost->slug]));
+		$response = $this->call('GET', URL::route('blog.detail', ['slug' => $blogPost->slug]));
 
 		$this->assertContains($blogPost->content, $response->getContent());
 	}

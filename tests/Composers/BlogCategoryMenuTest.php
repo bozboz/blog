@@ -17,7 +17,7 @@ class BlogCategoryMenuTest extends TestCase
 
 	public function test_menu_has_correct_categories()
 	{
-		$response = $this->call('GET', URL::route('blogIndex'));
+		$response = $this->call('GET', URL::route('blog.index'));
 		$blogCategories = BlogCategory::all();
 		$expectedBlogCategoryIds = [1, 2]; //The rest should be inactive or not have any related BlogPosts
 		$error = false;
