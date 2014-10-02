@@ -18,7 +18,9 @@ class BlogCategoryTest extends TestCase
 	{
 		$expectedOutput = [
 			1 => 'Blog Category #1',
-			2 => 'Blog Category #2'
+			2 => 'Blog Category #2',
+			3 => 'Blog Category #3 - No related BlogPosts',
+			4 => 'Blog Category #4 - Inactive'
 		];
 
 		$blogCategory = new BlogCategory();

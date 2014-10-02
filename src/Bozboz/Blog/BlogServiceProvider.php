@@ -20,7 +20,7 @@ class BlogServiceProvider extends ServiceProvider {
 	{
 		$this->package('bozboz/blog');
 
-		foreach (['routes.php', 'events.php'] as $file) {
+		foreach (['routes.php', 'events.php', 'composers.php'] as $file) {
 			require(__DIR__ . '/../../' . $file);
 		}
 	}

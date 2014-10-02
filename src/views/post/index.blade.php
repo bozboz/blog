@@ -1,3 +1,5 @@
+@include('blog::partials.category-menu')
+
 <ul>
   @foreach ($blogPosts as $blogPost)
     <li>
