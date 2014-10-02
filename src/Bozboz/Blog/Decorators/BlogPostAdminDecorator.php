@@ -43,8 +43,6 @@ class BlogPostAdminDecorator extends ModelAdminDecorator
 
 	public function getFields()
 	{
-		$blogStatusFactory = new BlogStatus();
-
 		return [
 			new TextField(['name' => 'title']),
 			new TextField(['name' => 'short_description']),
@@ -60,7 +58,7 @@ class BlogPostAdminDecorator extends ModelAdminDecorator
 				'label' => 'Status',
 				'options' => array_replace(
 					['' => 'Select'],
-					$blogStatusFactory->toArray()
+					BlogStatus::lists('name', 'id')	
 				)
 			])
 		];

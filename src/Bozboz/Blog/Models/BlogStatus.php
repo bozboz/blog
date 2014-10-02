@@ -15,17 +15,4 @@ class BlogStatus extends Eloquent
 	{
 		return $this->hasMany('Bozboz\Blog\Models\BlogPost');
 	}
-
-	/**
-	 * @return array id => status
-	 */
-	public function toArray()
-	{
-		$output = [];
-		foreach (BlogStatus::all() as $blogStatus) {
-			$output[$blogStatus->id] = $blogStatus->name;
-		}
-
-		return $output;
-	}
 }
