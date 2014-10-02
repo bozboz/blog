@@ -18,9 +18,7 @@ class BlogCategory extends Base
 	{
 		return $this->belongsToMany(
 			'Bozboz\Blog\Models\BlogPost',
-			'blog_posts_mm_blog_categories',
-			'blog_post_id',
-			'blog_category_id'
+			'blog_posts_mm_blog_categories'
 		);
 	}
 
