@@ -20,10 +20,10 @@ class BlogCategoryControllerTest extends TestCase
 	public function test_category_listing()
 	{
 		Config::set('blog::sticky_posts_enabled', false);
-		$blogCategoryId = 1;
+		$blogCategoryId = 2;
 		$blogCategory = BlogCategory::find($blogCategoryId);
 		$response = $this->call('GET', URL::route('blog-category.listing', ['slug' => $blogCategory->slug]));
-		$blogPosts = BlogPost::take($blogCategoryId * 2)->get();
+		$blogPosts = BlogPost::take($blogCategoryId)->get();
 
 		$error = false;
 		$i = 0;

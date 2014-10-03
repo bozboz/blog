@@ -23,7 +23,7 @@ class BlogCategoryAndPostSeeder extends Seeder
 
 		foreach (BlogCategory::all() as $blogCategory) {
 			if ($blogCategory->name !== 'Blog Category #3 - No related BlogPosts') {
-				$blogCount = $blogCategory->id * 2;
+				$blogCount = $blogCategory->id;
 				foreach (BlogPost::take($blogCount)->get() as $blogPost) {
 					$blogPost->categories()->attach($blogCategory->id);
 				}
