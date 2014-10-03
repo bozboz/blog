@@ -7,4 +7,8 @@ Route::group(['namespace' => 'Bozboz\Blog\Controllers'], function()
 
 	Route::get('blog', ['as' => 'blog.index', 'uses' => 'BlogPostController@getIndex']);
 	Route::get('blog/{slug}', ['as' => 'blog.detail', 'uses' => 'BlogPostController@getDetail']);
+	Route::get('blog-category/{slug}', [
+		'as' => 'blog-category.listing',
+		'uses' => 'BlogCategoryController@getBlogListing'
+	]);
 });
