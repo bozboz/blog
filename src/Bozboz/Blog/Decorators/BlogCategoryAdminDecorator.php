@@ -1,8 +1,11 @@
 <?php namespace Bozboz\Blog\Decorators;
 
+use Config;
 use Bozboz\Admin\Fields\TextField;
+use Bozboz\Admin\Fields\SelectField;
 use Bozboz\Admin\Fields\CheckboxField;
 use Bozboz\Blog\Models\BlogCategory;
+use Bozboz\Blog\Models\BlogPost;
 use Bozboz\Admin\Decorators\ModelAdminDecorator;
 
 class BlogCategoryAdminDecorator extends ModelAdminDecorator
@@ -32,10 +35,23 @@ class BlogCategoryAdminDecorator extends ModelAdminDecorator
 
 	public function getFields()
 	{
-		return [
+		$fields = [
 			new TextField(['name' => 'name']),
 			new TextField(['name' => 'slug']),
 			new CheckboxField(['name' => 'status'])
 		];
+
+		if (Config::get('blog::sticky_posts_enabled')) {
+			$fields[] = new SelectField([
+				'name' => 'sticky_post_id',
+				'label' => 'Sticky Post',
+				'options' => array_replace(
+					['' => 'Select'],
+					BlogPost::lists('title', 'id')
+				)
+			]);
+		}
+
+		return $fields;
 	}
 }

@@ -1,6 +1,7 @@
 <?php namespace Bozboz\Blog\Tests\Controllers;
 
 use URL;
+use Config;
 use TestCase;
 use Bozboz\Blog\Models\BlogPost;
 use Bozboz\Blog\Models\BlogCategory;
@@ -18,6 +19,7 @@ class BlogCategoryControllerTest extends TestCase
 
 	public function test_category_listing()
 	{
+		Config::set('blog::sticky_posts_enabled', false);
 		$blogCategoryId = 1;
 		$blogCategory = BlogCategory::find($blogCategoryId);
 		$response = $this->call('GET', URL::route('blog-category.listing', ['slug' => $blogCategory->slug]));
@@ -44,5 +46,24 @@ class BlogCategoryControllerTest extends TestCase
 		}
 
 		$this->assertFalse($error);
+	}
+
+	public function test_category_listing_with_sticky_post()
+	{
+		Config::set('blog::sticky_posts_enabled', true);
+
+		//Attach sticky BlogPost
+		$blogCategoryId = 1;
+		$blogCategory = BlogCategory::find($blogCategoryId);
+		$stickyBlogPost = BlogPost::all()->last();
+		$blogCategory->sticky_post_id = $stickyBlogPost->id;
+		$blogCategory->save();
+
+		$response = $this->call('GET', URL::route('blog-category.listing', ['slug' => $blogCategory->slug]));
+
+		$stickyPostPosition = strpos($response->getContent(), $stickyBlogPost->title);
+		$firstCategoryBlogPostPosition = strpos($response->getContent(), $blogCategory->blogPosts()->first()->title);
+
+		$this->assertTrue($stickyPostPosition !== false && $stickyPostPosition < $firstCategoryBlogPostPosition);
 	}
 }
