@@ -1,10 +1,12 @@
 <?php namespace Bozboz\Blog\Tests\Controllers;
 
 use URL;
+use Config;
 use TestCase;
 use Bozboz\Blog\Database\Seeds\BlogPostSeeder;
 use Bozboz\Blog\Models\BlogPost;
 use Bozboz\Blog\Models\BlogStatus;
+use Bozboz\Blog\Models\BlogCategory;
 
 class BlogPostControllerTest extends TestCase
 {
@@ -18,7 +20,7 @@ class BlogPostControllerTest extends TestCase
 	public function test_index_has_blog_list()
 	{
 		$response = $this->call('GET', URL::route('blog.index'));
-		$blogPosts = BlogPost::where('blog_status_id', '=', BlogStatus::ACTIVE)->get();
+		$blogPosts = BlogPost::where('blog_status_id', '=', BlogStatus::ACTIVE)->take(Config::get('blog::blog_count_on_index'));
 
 		foreach ($blogPosts as $blogPost) {
 			$this->assertContains($blogPost->title, $response->getContent());

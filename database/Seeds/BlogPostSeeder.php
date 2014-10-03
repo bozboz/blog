@@ -10,7 +10,7 @@ class BlogPostSeeder extends Seeder
 	{
 		BlogPost::truncate();
 		$date = date('Y-m-d H:i:s');
-		for ($i = 1; $i < 5; $i++) {
+		for ($i = 1; $i <= 20; $i++) {
 			BlogPost::create([
 				'title' => 'BlogPost ' . $i . ' title',
 				'short_description' => 'BlogPost ' . $i . ' short_description',
