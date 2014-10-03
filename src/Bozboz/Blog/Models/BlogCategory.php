@@ -21,17 +21,4 @@ class BlogCategory extends Base
 			'blog_posts_mm_blog_categories'
 		);
 	}
-
-	/**
-	 * @return array id => name
-	 */
-	public function toArray()
-	{
-		$output = [];
-		foreach (BlogCategory::all() as $blogCategory) {
-			$output[$blogCategory->id] = $blogCategory->name;
-		}
-
-		return $output;
-	}
 }
