@@ -18,16 +18,10 @@ class BlogPostAdminDecorator extends ModelAdminDecorator
 
 	public function getColumns($instance)
 	{
-		if (isset($instance->status->name)) {
-			$status = $instance->status->name;
-		} else {
-			$status = '';
-		}
-
 		return [
 			'Title' => $this->getLabel($instance),
 			'Description' => $instance->getAttribute('short_description'),
-			'Status' => $status
+			'Status' => $instance->blog_status_id === BlogStatus::ACTIVE ? 'Active' : 'Inactive'
 		];
 	}
 
