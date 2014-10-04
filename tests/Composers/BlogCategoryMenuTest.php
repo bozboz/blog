@@ -3,6 +3,7 @@
 use URL;
 use TestCase;
 use Bozboz\Blog\Models\BlogCategory;
+use Bozboz\Blog\Database\Seeds\BlogCategorySeeder;
 use Bozboz\Blog\Database\Seeds\BlogCategoryAndPostSeeder;
 
 class BlogCategoryMenuTest extends TestCase
@@ -19,17 +20,20 @@ class BlogCategoryMenuTest extends TestCase
 	{
 		$response = $this->call('GET', URL::route('blog.index'));
 		$blogCategories = BlogCategory::all();
-		$expectedBlogCategoryIds = [1, 2]; //The rest should be inactive or not have any related BlogPosts
+		$unexpectedBlogCategoryIds = [
+			BlogCategorySeeder::INACTIVE_ID,
+			BlogCategoryAndPostSeeder::NO_RELATED_POSTS_ID
+		];
 		$error = false;
 		$i = 0;
 		while ($i < count($blogCategories) && !$error) {
 			$blogCategory = $blogCategories[$i];
 			if (strpos($response->getContent(), $blogCategory->name) === false) {
-				if (in_array($blogCategory->id, $expectedBlogCategoryIds)) {
+				if (!in_array($blogCategory->id, $unexpectedBlogCategoryIds)) {
 					$error = true; //Not in the DOM but should be
 				}
 			} else {
-				if (!in_array($blogCategory->id, $expectedBlogCategoryIds)) {
+				if (in_array($blogCategory->id, $unexpectedBlogCategoryIds)) {
 					$error = true; //In the DOM but shouldn't be
 				}
 			}

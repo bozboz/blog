@@ -1,7 +1,6 @@
 <?php namespace Bozboz\Blog\Database\Seeds;
 
 use DB;
-use Config;
 use Illuminate\Database\Seeder;
 use Bozboz\Blog\Models\BlogPost;
 use Bozboz\Blog\Models\BlogCategory;
@@ -11,6 +10,9 @@ use Bozboz\Blog\Models\BlogCategory;
  */
 class BlogCategoryAndPostSeeder extends Seeder
 {
+	const NO_RELATED_POSTS_ID = 5;
+	const NO_RELATED_CATEGORIES_ID = 5;
+
 	public function run()
 	{
 		DB::statement('TRUNCATE blog_posts_mm_blog_categories');
@@ -21,12 +23,11 @@ class BlogCategoryAndPostSeeder extends Seeder
 		$categorySeeder->run();
 		$postSeeder->run();
 
-		foreach (BlogCategory::all() as $blogCategory) {
-			if ($blogCategory->name !== 'Blog Category #3 - No related BlogPosts') {
-				$blogCount = $blogCategory->id;
-				foreach (BlogPost::take($blogCount)->get() as $blogPost) {
-					$blogPost->categories()->attach($blogCategory->id);
-				}
+		foreach (BlogCategory::where('id', '!=', self::NO_RELATED_POSTS_ID)->get() as $blogCategory) {
+			$blogCount = $blogCategory->id;
+			$blogPosts = BlogPost::where('id', '!=', self::NO_RELATED_CATEGORIES_ID)->take($blogCount)->get();
+			foreach ($blogPosts as $blogPost) {
+				$blogPost->categories()->attach($blogCategory->id);
 			}
 		}
 	}
