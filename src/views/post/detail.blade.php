@@ -1,4 +1,4 @@
-<h2>{{ $blogPost->title }}</h2>
+<h1>{{ $blogPost->title }}</h1>
 
 {{ $blogPost->content  }}
 
