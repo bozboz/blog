@@ -1,6 +1,8 @@
 <?php namespace Bozboz\Blog\Models;
 
+use Config;
 use Bozboz\Admin\Models\Base;
+use Bozboz\Blog\Models\BlogStatus;
 use Bozboz\Blog\Validators\BlogCategoryValidator;
 
 class BlogCategory extends Base
@@ -25,5 +27,30 @@ class BlogCategory extends Base
 	public function stickyBlogPost()
 	{
 		return $this->belongsTo('Bozboz\Blog\Models\BlogPost', 'sticky_post_id');
+	}
+
+	/**
+	 * Get all BlogPosts tagged to this BlogCategory.
+	 * Factors in sticky post functionality if it is enabled.
+	 * If the sticky post is already related to the BlogCategory,
+	 * it will simply be the first element in the Collection.
+	 */
+	public function getBlogPosts()
+	{
+		$blogPostsBuilder = $this->blogPosts();
+		$blogPostsBuilder = $blogPostsBuilder->where('blog_status_id', '=', BlogStatus::ACTIVE);
+		if (Config::get('blog::sticky_posts_enabled')) {
+			$stickyBlogPost = $this->stickyBlogPost()->where('blog_status_id', '=', BlogStatus::ACTIVE)->first();
+			if (!empty($stickyBlogPost)) {
+				$blogPosts = $blogPostsBuilder->where($stickyBlogPost->getTable() . '.id', '!=', $stickyBlogPost->id)->get();
+				$blogPosts->prepend($stickyBlogPost);
+			} else {
+				$blogPosts = $blogPostsBuilder->get();
+			}
+		} else {
+			$blogPosts = $blogPostsBuilder->get();
+		}
+
+		return $blogPosts;
 	}
 }
