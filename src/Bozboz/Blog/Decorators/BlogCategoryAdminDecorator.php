@@ -38,7 +38,6 @@ class BlogCategoryAdminDecorator extends ModelAdminDecorator
 		$fields = [
 			new TextField(['name' => 'name']),
 			new TextField(['name' => 'slug']),
-			new CheckboxField(['name' => 'status'])
 		];
 
 		if (Config::get('blog::sticky_posts_enabled')) {
@@ -51,6 +50,8 @@ class BlogCategoryAdminDecorator extends ModelAdminDecorator
 				)
 			]);
 		}
+
+		$fields[] = new CheckboxField(['name' => 'status']);
 
 		return $fields;
 	}
