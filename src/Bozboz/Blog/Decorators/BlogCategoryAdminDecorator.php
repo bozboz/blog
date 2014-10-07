@@ -33,7 +33,7 @@ class BlogCategoryAdminDecorator extends ModelAdminDecorator
 		return $instance->getAttribute('name');
 	}
 
-	public function getFields()
+	public function getFields($instance)
 	{
 		$fields = [
 			new TextField(['name' => 'name']),

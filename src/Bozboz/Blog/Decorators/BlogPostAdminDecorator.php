@@ -36,7 +36,7 @@ class BlogPostAdminDecorator extends ModelAdminDecorator
 		return $instance->getAttribute('title');
 	}
 
-	public function getFields()
+	public function getFields($instance)
 	{
 		return [
 			new TextField(['name' => 'title']),
