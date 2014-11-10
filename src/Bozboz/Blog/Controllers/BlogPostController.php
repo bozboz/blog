@@ -33,4 +33,11 @@ class BlogPostController extends Controller
 			'blogPost' => $blogPost
 		]);
 	}
+
+	public function getArchive()
+	{
+		$blogPosts = BlogPost::where('blog_status_id', '=', BlogStatus::ACTIVE)->latest()->simplePaginate(12);
+
+		return View::make('blog::post.archive')->with('blogPosts', $blogPosts);
+	}
 }
