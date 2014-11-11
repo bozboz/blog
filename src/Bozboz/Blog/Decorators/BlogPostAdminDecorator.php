@@ -20,8 +20,8 @@ class BlogPostAdminDecorator extends ModelAdminDecorator
 	{
 		return [
 			'Title' => $this->getLabel($instance),
-			'Description' => $instance->getAttribute('short_description'),
 			'Categories' => $this->getCategoriesAsString($instance),
+			'Age' => $instance->created_at ? $instance->created_at->diffForHumans() : null,
 			'Status' => $instance->blog_status_id === BlogStatus::ACTIVE ? 'Active' : 'Inactive'
 		];
 	}
@@ -61,7 +61,7 @@ class BlogPostAdminDecorator extends ModelAdminDecorator
 
 	public function getListingModels()
 	{
-		return $this->model->orderBy('id')->get();
+		return $this->model->latest()->get();
 	}
 
 	private function getCategoriesAsString($instance)
