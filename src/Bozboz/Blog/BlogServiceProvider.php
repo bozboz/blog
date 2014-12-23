@@ -1,6 +1,7 @@
 <?php namespace Bozboz\Blog;
 
 use Illuminate\Support\ServiceProvider;
+use Bozboz\Admin\Components\Menu;
 
 class BlogServiceProvider extends ServiceProvider {
 
@@ -20,7 +21,7 @@ class BlogServiceProvider extends ServiceProvider {
 	{
 		$this->package('bozboz/blog');
 
-		foreach (['routes.php', 'events.php', 'composers.php'] as $file) {
+		foreach (['routes.php', 'composers.php'] as $file) {
 			require(__DIR__ . '/../../' . $file);
 		}
 	}
@@ -32,7 +33,15 @@ class BlogServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		$url = $this->app['url'];
+
+		$this->app['events']->listen('admin.renderMenu', function(Menu $menu) use ($url)
+		{
+			$menu['Blog'] = [
+				'Posts' => $url->route('admin.blog.posts.index'),
+				'Categories' => $url->route('admin.blog.categories.index'),
+			];
+		});
 	}
 
 	/**
