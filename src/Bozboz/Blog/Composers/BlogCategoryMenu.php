@@ -21,7 +21,7 @@ class BlogCategoryMenu
 	{
 		$blogCategories = BlogCategory::where('status', '=', 1)->whereHas('blogPosts', function($query)
 		{
-			$query->where('blog_status_id', '=', BlogStatus::ACTIVE);
+			$query->active();
 		})->get();
 
 		return $blogCategories;

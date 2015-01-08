@@ -11,7 +11,7 @@ class BlogPostController extends Controller
 	public function getIndex()
 	{
 		$blogCount = Config::get('blog::blog_count_on_index');
-		$blogPosts = BlogPost::where('blog_status_id', '=', BlogStatus::ACTIVE)->take($blogCount)->latest()->get();
+		$blogPosts = BlogPost::active()->take($blogCount)->latest()->get();
 		if ($blogPosts->isEmpty()) {
 			$response = View::make('blog::post.empty');
 		} else {
@@ -26,7 +26,7 @@ class BlogPostController extends Controller
 	public function getDetail($slug)
 	{
 		$blogPost = BlogPost::where('slug', '=', $slug)
-					->where('blog_status_id', '=', BlogStatus::ACTIVE)
+					->active()
 					->firstOrFail();
 
 		return View::make('blog::post.detail', [
@@ -36,7 +36,7 @@ class BlogPostController extends Controller
 
 	public function getArchive()
 	{
-		$blogPosts = BlogPost::where('blog_status_id', '=', BlogStatus::ACTIVE)->latest()->simplePaginate(12);
+		$blogPosts = BlogPost::active()->latest()->simplePaginate(12);
 
 		return View::make('blog::post.archive')->with('blogPosts', $blogPosts);
 	}

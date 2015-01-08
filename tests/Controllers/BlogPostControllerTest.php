@@ -20,7 +20,7 @@ class BlogPostControllerTest extends TestCase
 	public function test_index_has_blog_list()
 	{
 		$response = $this->call('GET', URL::route('blog.index'));
-		$blogPosts = BlogPost::where('blog_status_id', '=', BlogStatus::ACTIVE)->take(Config::get('blog::blog_count_on_index'));
+		$blogPosts = BlogPost::active()->take(Config::get('blog::blog_count_on_index'));
 
 		foreach ($blogPosts as $blogPost) {
 			$this->assertContains($blogPost->title, $response->getContent());
@@ -37,7 +37,7 @@ class BlogPostControllerTest extends TestCase
 
 	public function test_blog_detail()
 	{
-		$blogPost = BlogPost::where('blog_status_id', '=', BlogStatus::ACTIVE)->first();
+		$blogPost = BlogPost::active()->first();
 		$response = $this->call('GET', URL::route('blog.detail', ['slug' => $blogPost->slug]));
 
 		$this->assertContains($blogPost->content, $response->getContent());

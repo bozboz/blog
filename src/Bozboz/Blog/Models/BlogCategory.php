@@ -38,9 +38,9 @@ class BlogCategory extends Base
 	public function getBlogPosts()
 	{
 		$blogPostsBuilder = $this->blogPosts();
-		$blogPostsBuilder = $blogPostsBuilder->where('blog_status_id', '=', BlogStatus::ACTIVE);
+		$blogPostsBuilder = $blogPostsBuilder->active();
 		if (Config::get('blog::sticky_posts_enabled')) {
-			$stickyBlogPost = $this->stickyBlogPost()->where('blog_status_id', '=', BlogStatus::ACTIVE)->first();
+			$stickyBlogPost = $this->stickyBlogPost()->active()->first();
 			if (!empty($stickyBlogPost)) {
 				$blogPosts = $blogPostsBuilder->where($stickyBlogPost->getTable() . '.id', '!=', $stickyBlogPost->id)->get();
 				$blogPosts->prepend($stickyBlogPost);

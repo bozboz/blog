@@ -18,12 +18,20 @@ class BlogPostAdminDecorator extends ModelAdminDecorator
 
 	public function getColumns($instance)
 	{
+		$date = $instance->exists ? $this->dateOfBlog($instance) : null;
+
 		return [
 			'Title' => $this->getLabel($instance),
 			'Categories' => $this->getCategoriesAsString($instance),
-			'Age' => $instance->created_at ? $instance->created_at->diffForHumans() : null,
+			'Posted' => $date && $date->isPast()? $date->diffForHumans() : '-',
+			'Scheduled' => $date && $date->isFuture() ? $date->format('jS F Y') : null,
 			'Status' => $instance->blog_status_id === BlogStatus::ACTIVE ? 'Active' : 'Inactive'
 		];
+	}
+
+	private function dateOfBlog(BlogPost $post)
+	{
+		return $post->post_date ?: $post->created_at;
 	}
 
 	public function getSyncRelations()
@@ -55,7 +63,8 @@ class BlogPostAdminDecorator extends ModelAdminDecorator
 					['' => 'Select'],
 					BlogStatus::lists('name', 'id')	
 				)
-			])
+			]),
+			new TextField('post_date')
 		];
 	}
 
