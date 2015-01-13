@@ -36,6 +36,6 @@ class BlogPost extends Base
 
 		$query
 			->where('blog_status_id', BlogStatus::ACTIVE)
-			->where('post_date', '>=', $now);
+			->where('post_date', '<=', $now);
 	}
 }
