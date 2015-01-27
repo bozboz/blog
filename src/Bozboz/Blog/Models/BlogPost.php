@@ -38,4 +38,15 @@ class BlogPost extends Base
 			->where('blog_status_id', BlogStatus::ACTIVE)
 			->where('post_date', '<=', $now);
 	}
+	
+	/**
+	 * Set created_at value and give a default value for post_date
+	 * if not already set.
+	 * @param DateTime obj $value created_at value
+	 */
+	public function setCreatedAt($value)
+	{
+		parent::setCreatedAt($value);
+		$this->post_date = $this->post_date ?: $value;
+	}
 }
