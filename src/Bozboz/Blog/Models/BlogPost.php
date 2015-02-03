@@ -8,7 +8,7 @@ class BlogPost extends Base
 {
 	protected $table = 'blog_posts';
 
-	protected $fillable = ['title', 'short_description', 'content', 'slug', 'blog_status_id', 'post_date'];
+	protected $fillable = ['title', 'short_description', 'content', 'slug', 'blog_status_id', 'post_date', 'youtube_url'];
 
 	protected $dates = ['post_date'];
 

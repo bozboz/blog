@@ -51,6 +51,7 @@ class BlogPostAdminDecorator extends ModelAdminDecorator
 			new TextField(['name' => 'short_description']),
 			new HTMLEditorField(['name' => 'content']),
 			new TextField(['name' => 'slug']),
+			new TextField(['name' => 'youtube_url']),
 			new CheckboxesField([
 				'name' => 'categories_relationship',
 				'label' => 'Categories',
