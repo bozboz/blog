@@ -8,6 +8,8 @@ use Bozboz\Admin\Fields\SelectField;
 use Bozboz\Admin\Fields\HTMLEditorField;
 use Bozboz\Admin\Fields\CheckboxesField;
 use Bozboz\Admin\Decorators\ModelAdminDecorator;
+use Bozboz\MediaLibrary\Fields\MediaBrowser;
+use Bozboz\MediaLibrary\Models\Media;
 
 class BlogPostAdminDecorator extends ModelAdminDecorator
 {
@@ -36,7 +38,7 @@ class BlogPostAdminDecorator extends ModelAdminDecorator
 
 	public function getSyncRelations()
 	{
-		return ['categories'];
+		return ['categories', 'media'];
 	}
 
 	public function getLabel($instance)
@@ -65,7 +67,8 @@ class BlogPostAdminDecorator extends ModelAdminDecorator
 					BlogStatus::lists('name', 'id')	
 				)
 			]),
-			new TextField('post_date')
+			new TextField('post_date'),
+			new MediaBrowser($instance->media())
 		];
 	}
 

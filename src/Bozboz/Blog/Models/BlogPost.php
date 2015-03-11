@@ -3,9 +3,12 @@
 use Bozboz\Admin\Models\Base;
 use Bozboz\Blog\Validators\BlogPostValidator;
 use DateTime;
+use Bozboz\MediaLibrary\Models\MediableTrait;
 
 class BlogPost extends Base
 {
+	use MediableTrait;
+
 	protected $table = 'blog_posts';
 
 	protected $fillable = ['title', 'short_description', 'content', 'slug', 'blog_status_id', 'post_date', 'youtube_url'];
