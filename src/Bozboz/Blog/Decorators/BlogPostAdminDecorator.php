@@ -4,12 +4,14 @@ use Bozboz\Blog\Models\BlogPost;
 use Bozboz\Blog\Models\BlogCategory;
 use Bozboz\Blog\Models\BlogStatus;
 use Bozboz\Admin\Fields\TextField;
+use Bozboz\Admin\Fields\DateTimeField;
 use Bozboz\Admin\Fields\SelectField;
 use Bozboz\Admin\Fields\HTMLEditorField;
 use Bozboz\Admin\Fields\CheckboxesField;
 use Bozboz\Admin\Decorators\ModelAdminDecorator;
 use Bozboz\MediaLibrary\Fields\MediaBrowser;
 use Bozboz\MediaLibrary\Models\Media;
+
 
 class BlogPostAdminDecorator extends ModelAdminDecorator
 {
@@ -52,8 +54,8 @@ class BlogPostAdminDecorator extends ModelAdminDecorator
 			new TextField(['name' => 'title']),
 			new TextField(['name' => 'short_description']),
 			new HTMLEditorField(['name' => 'content']),
-			new TextField(['name' => 'slug']),
 			new TextField(['name' => 'youtube_url']),
+			new TextField(['name' => 'slug']),
 			new CheckboxesField([
 				'name' => 'categories_relationship',
 				'label' => 'Categories',
@@ -64,10 +66,13 @@ class BlogPostAdminDecorator extends ModelAdminDecorator
 				'label' => 'Status',
 				'options' => array_replace(
 					['' => 'Select'],
-					BlogStatus::lists('name', 'id')	
+					BlogStatus::lists('name', 'id')
 				)
 			]),
-			new TextField('post_date'),
+			new DateTimeField([
+                'name' => 'post_date',
+                'label' => 'Post Date'
+            ]),
 			new MediaBrowser($instance->media())
 		];
 	}
