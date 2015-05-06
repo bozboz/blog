@@ -22,7 +22,6 @@
             "Bozboz\\Blog\\Tests\\": "tests/"
         }
     },
-    "minimum-stability": "dev",
     "repositories": [
         {
             "type": "composer",
