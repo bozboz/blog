@@ -35,6 +35,16 @@ class BlogPost extends Base
 		);
 	}
 
+	public function relatedPosts()
+	{
+		return $this->belongsToMany(
+			'Bozboz\Blog\Models\BlogPost',
+			'blog_posts_mm_related_posts',
+			'blog_post_id',
+			'blog_related_post_id'
+		);
+	}
+
 	public function getSlugSourceField()
     {
         return 'title';

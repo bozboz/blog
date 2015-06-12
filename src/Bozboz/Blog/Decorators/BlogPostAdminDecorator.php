@@ -8,6 +8,7 @@ use Bozboz\Admin\Fields\DateTimeField;
 use Bozboz\Admin\Fields\SelectField;
 use Bozboz\Admin\Fields\HTMLEditorField;
 use Bozboz\Admin\Fields\CheckboxesField;
+use Bozboz\Admin\Fields\BelongsToManyField;
 use Bozboz\Admin\Decorators\ModelAdminDecorator;
 use Bozboz\MediaLibrary\Fields\MediaBrowser;
 use Bozboz\MediaLibrary\Models\Media;
@@ -15,9 +16,12 @@ use Bozboz\MediaLibrary\Models\Media;
 
 class BlogPostAdminDecorator extends ModelAdminDecorator
 {
-	public function __construct(BlogPost $blogPostFactory)
+	protected $categoryDecorator;
+
+	public function __construct(BlogPost $blogPostFactory, BlogCategoryAdminDecorator $category)
 	{
 		parent::__construct($blogPostFactory);
+		$this->categoryDecorator = $category;
 	}
 
 	public function getColumns($instance)
@@ -40,7 +44,7 @@ class BlogPostAdminDecorator extends ModelAdminDecorator
 
 	public function getSyncRelations()
 	{
-		return ['categories', 'media'];
+		return ['categories', 'media', 'relatedPosts'];
 	}
 
 	public function getLabel($instance)
@@ -56,11 +60,8 @@ class BlogPostAdminDecorator extends ModelAdminDecorator
 			new HTMLEditorField(['name' => 'content']),
 			new TextField(['name' => 'youtube_url']),
 			new TextField(['name' => 'slug']),
-			new CheckboxesField([
-				'name' => 'categories_relationship',
-				'label' => 'Categories',
-				'options' => \Bozboz\Blog\Models\BlogCategory::all(),
-			]),
+			new BelongsToManyField($this->categoryDecorator, $instance->categories(), ['label' => 'Categories']),
+			new BelongsToManyField($this, $instance->relatedPosts(), ['label' => 'Related Posts']),
 			new SelectField([
 				'name' => 'blog_status_id',
 				'label' => 'Status',
