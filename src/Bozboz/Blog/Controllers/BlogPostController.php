@@ -11,7 +11,9 @@ class BlogPostController extends Controller
 	public function getIndex()
 	{
 		$blogCount = Config::get('blog::blog_count_on_index');
-		$blogPosts = BlogPost::active()->take($blogCount)->orderBy('post_date', 'DESC')->simplePaginate(12);
+
+		$blogPosts = BlogPost::active()->orderBy('post_date', 'DESC')->simplePaginate($blogCount);
+
 		if ($blogPosts->isEmpty()) {
 			$response = View::make('blog::post.empty');
 		} else {
@@ -36,7 +38,9 @@ class BlogPostController extends Controller
 
 	public function getArchive()
 	{
-		$blogPosts = BlogPost::active()->orderBy('post_date', 'DESC')->simplePaginate(12);
+		$blogCount = Config::get('blog::blog_count_on_index');
+
+		$blogPosts = BlogPost::active()->orderBy('post_date', 'DESC')->simplePaginate($blogCount);
 
 		return View::make('blog::post.archive')->with('blogPosts', $blogPosts);
 	}
