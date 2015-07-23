@@ -11,7 +11,7 @@ class BlogPostController extends Controller
 	public function getIndex()
 	{
 		$blogCount = Config::get('blog::blog_count_on_index');
-		$blogPosts = BlogPost::active()->take($blogCount)->latest()->get();
+		$blogPosts = BlogPost::active()->take($blogCount)->latest()->simplePaginate(12);
 		if ($blogPosts->isEmpty()) {
 			$response = View::make('blog::post.empty');
 		} else {
