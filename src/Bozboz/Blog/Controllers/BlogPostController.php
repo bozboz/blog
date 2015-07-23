@@ -5,6 +5,7 @@ use Config;
 use Controller;
 use Bozboz\Blog\Models\BlogPost;
 use Bozboz\Blog\Models\BlogStatus;
+use Illuminate\Support\Facades\Request;
 
 class BlogPostController extends Controller
 {
@@ -13,6 +14,10 @@ class BlogPostController extends Controller
 		$blogCount = Config::get('blog::blog_count_on_index');
 
 		$blogPosts = BlogPost::active()->orderBy('post_date', 'DESC')->simplePaginate($blogCount);
+
+		if (Request::ajax()) {
+			return View::make('blog::post.ajax', ['blogPosts' => $blogPosts]);
+		}
 
 		if ($blogPosts->isEmpty()) {
 			$response = View::make('blog::post.empty');
