@@ -13,7 +13,7 @@ class BlogPostController extends Controller
 	{
 		$blogCount = Config::get('blog::blog_count_on_index');
 
-		$blogPosts = BlogPost::active()->orderBy('post_date', 'DESC')->simplePaginate($blogCount);
+		$blogPosts = BlogPost::active()->orderBy('post_date', 'DESC')->paginate($blogCount);
 
 		if (Request::ajax()) {
 			return View::make('blog::post.ajax', ['blogPosts' => $blogPosts]);
@@ -45,7 +45,7 @@ class BlogPostController extends Controller
 	{
 		$blogCount = Config::get('blog::blog_count_on_index');
 
-		$blogPosts = BlogPost::active()->orderBy('post_date', 'DESC')->simplePaginate($blogCount);
+		$blogPosts = BlogPost::active()->orderBy('post_date', 'DESC')->paginate($blogCount);
 
 		return View::make('blog::post.archive')->with('blogPosts', $blogPosts);
 	}
