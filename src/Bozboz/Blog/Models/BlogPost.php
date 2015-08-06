@@ -59,6 +59,11 @@ class BlogPost extends Base
 			->where('post_date', '<=', $now);
 	}
 
+	public function scopeLatest($query)
+	{
+		$query->orderBy('post_date', 'desc');
+	}
+
 	/**
 	 * Set created_at value and give a default value for post_date
 	 * if not already set.
