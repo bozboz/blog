@@ -1,5 +1,10 @@
 # Bozboz Blog Package Changelog
 
+## Version 0.3.1 (2015-09-07)
+
+-	The route that lists all BlogPosts belonging to a BlogCategory
+	now sorts BlogPosts by "post_date" DESC
+
 ## Version v0.3.0 (2015-08-26)
 -   Add related blog posts functionality
 -   Make blog prefix URL configurable
