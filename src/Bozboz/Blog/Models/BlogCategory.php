@@ -39,6 +39,7 @@ class BlogCategory extends Base
 	{
 		$blogPostsBuilder = $this->blogPosts();
 		$blogPostsBuilder = $blogPostsBuilder->active();
+		$blogPostsBuilder->orderBy('post_date', 'DESC');
 		if (Config::get('blog::sticky_posts_enabled')) {
 			$stickyBlogPost = $this->stickyBlogPost()->active()->first();
 			if (!empty($stickyBlogPost)) {
