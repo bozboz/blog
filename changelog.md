@@ -1,8 +1,5 @@
 # Bozboz Blog Package Changelog
 
-## Version 0.3.2 (2015-09-21)
--	Preserve compatability with ModelAdminDecorator
-
 ## Version 0.3.1 (2015-09-07)
 
 -	The route that lists all BlogPosts belonging to a BlogCategory

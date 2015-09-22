@@ -78,7 +78,7 @@ class BlogPostAdminDecorator extends ModelAdminDecorator
 		];
 	}
 
-	public function getListingModels($limit = true)
+	public function getListingModels()
 	{
 		return $this->model->latest()->get();
 	}

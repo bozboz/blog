@@ -15,7 +15,7 @@ class BlogCategoryAdminDecorator extends ModelAdminDecorator
 		parent::__construct($categoryFactory);
 	}
 
-	public function getListingModels($limit = true)
+	public function getListingModels()
 	{
 		return $this->model->all();
 	}
