@@ -6,6 +6,7 @@ use Controller;
 use Bozboz\Blog\Models\BlogPost;
 use Bozboz\Blog\Models\BlogStatus;
 use Illuminate\Support\Facades\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BlogPostController extends Controller
 {
@@ -34,7 +35,9 @@ class BlogPostController extends Controller
 	{
 		$blogPost = BlogPost::where('slug', '=', $slug)
 					->active()
-					->firstOrFail();
+					->first();
+
+		if ( ! $blogPost) throw new NotFoundHttpException;
 
 		return View::make('blog::post.detail', [
 			'blogPost' => $blogPost
