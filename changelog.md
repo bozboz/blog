@@ -1,5 +1,13 @@
 # Bozboz Blog Package Changelog
 
+## Version 0.4.1 (2015-02-03)
+-   Remove hard-coded class in BlogPost::relatedPosts method, to allow for extended blog post classes
+
+
+## Version 0.4.0 (2015-12-04)
+-   Add alternative view for Blog Categories when requested via AJAX
+
+
 ## Version 0.3.3 (2016-02-03)
 -   Remove hard-coded class in BlogPost::relatedPosts method, to allow for extended blog post classes
 
