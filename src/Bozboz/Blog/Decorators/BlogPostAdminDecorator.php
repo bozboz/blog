@@ -1,17 +1,18 @@
 <?php namespace Bozboz\Blog\Decorators;
 
-use Bozboz\Blog\Models\BlogPost;
-use Bozboz\Blog\Models\BlogCategory;
-use Bozboz\Blog\Models\BlogStatus;
-use Bozboz\Admin\Fields\TextField;
-use Bozboz\Admin\Fields\DateTimeField;
-use Bozboz\Admin\Fields\SelectField;
-use Bozboz\Admin\Fields\HTMLEditorField;
-use Bozboz\Admin\Fields\CheckboxesField;
-use Bozboz\Admin\Fields\BelongsToManyField;
 use Bozboz\Admin\Decorators\ModelAdminDecorator;
+use Bozboz\Admin\Fields\BelongsToManyField;
+use Bozboz\Admin\Fields\CheckboxesField;
+use Bozboz\Admin\Fields\DateTimeField;
+use Bozboz\Admin\Fields\HTMLEditorField;
+use Bozboz\Admin\Fields\SelectField;
+use Bozboz\Admin\Fields\TextField;
+use Bozboz\Blog\Models\BlogCategory;
+use Bozboz\Blog\Models\BlogPost;
+use Bozboz\Blog\Models\BlogStatus;
 use Bozboz\MediaLibrary\Fields\MediaBrowser;
 use Bozboz\MediaLibrary\Models\Media;
+use Illuminate\Database\Eloquent\Builder;
 
 
 class BlogPostAdminDecorator extends ModelAdminDecorator
@@ -78,9 +79,9 @@ class BlogPostAdminDecorator extends ModelAdminDecorator
 		];
 	}
 
-	public function getListingModels()
+	public function modifyListingQuery(Builder $query)
 	{
-		return $this->model->latest()->get();
+		return $query->latest();
 	}
 
 	private function getCategoriesAsString($instance)
