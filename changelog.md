@@ -1,5 +1,8 @@
 # Bozboz Blog Package Changelog
 
+## Version 0.4.2 (2016-03-04)
+-   Use `modifyListingQuery` instead of `getListingModels` in post decorator
+
 ## Version 0.4.1 (2015-02-03)
 -   Remove hard-coded class in BlogPost::relatedPosts method, to allow for extended blog post classes
 
