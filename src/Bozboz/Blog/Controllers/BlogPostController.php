@@ -5,13 +5,14 @@ use Config;
 use Controller;
 use Bozboz\Blog\Models\BlogPost;
 use Bozboz\Blog\Models\BlogStatus;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BlogPostController extends Controller
 {
 	public function getIndex()
 	{
 		$blogCount = Config::get('blog::blog_count_on_index');
-		$blogPosts = BlogPost::active()->take($blogCount)->latest()->get();
+		$blogPosts = BlogPost::active()->take($blogCount)->latest('post_date')->get();
 		if ($blogPosts->isEmpty()) {
 			$response = View::make('blog::post.empty');
 		} else {
@@ -27,7 +28,9 @@ class BlogPostController extends Controller
 	{
 		$blogPost = BlogPost::where('slug', '=', $slug)
 					->active()
-					->firstOrFail();
+					->first();
+
+		if ( ! $blogPost) throw new NotFoundHttpException;
 
 		return View::make('blog::post.detail', [
 			'blogPost' => $blogPost
