@@ -14,7 +14,7 @@ class BlogPostController extends Controller
 	{
 		$blogCount = Config::get('blog::blog_count_on_index');
 
-		$blogPosts = BlogPost::active()->orderBy('post_date', 'DESC')->paginate($blogCount);
+		$blogPosts = BlogPost::active()->latest('post_date')->paginate($blogCount);
 
 		if (Request::ajax()) {
 			return View::make('blog::post.ajax', ['blogPosts' => $blogPosts]);
